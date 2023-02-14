@@ -1,0 +1,25 @@
+{{>layouts/header}}
+
+    <h1>후보자 등록</h1>
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <form>
+                <div class="form-group">
+                    <label for="department"> 학과 </label>
+                    <input type="text" class="form-control" id="department" placeholder="학과">
+                </div>
+                <div class="form-group">
+                    <label for="candidate1"> 학회장 </label>
+                    <input type="text" class="form-control" id="candidate1" placeholder="학회장">
+                </div>
+                <div class="form-group">
+                    <label for="candidate2"> 부학회장 </label>
+                    <input type="text" class="form-control" id="candidate2" placeholder="부학회장">
+                </div>
+            </form>
+            <a href="/" role="button" class="btn btn-secondary">취소</a>
+            <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+        </div>
+    </div>
+
+{{>layouts/footer}}
