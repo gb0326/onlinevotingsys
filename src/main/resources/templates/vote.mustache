@@ -1,0 +1,21 @@
+{{>layouts/header}}
+
+    <h1>투표하기</h1>
+    <hr>
+    <div>
+        <h1>후보 {{candidate.id}}번 {{candidate.department}}</h1>
+        <div class="d-flex flex-row bd-highlight mb-3">
+            <img src="..." class="img-thumbnail" alt="...">
+            <img src="..." class="img-thumbnail" alt="...">
+        </div>
+        <div class="d-flex flex-row bd-highlight mb-3">
+            <div class="p-2 bd-highlight">{{candidate.candidate1}}</div>
+            <div class="p-2 bd-highlight">{{candidate.candidate2}}</div>
+        </div>
+        <div>
+            <button id="btn-positive">찬성</button>
+            <button id="btn-negative">반대</button>
+        </div>
+    </div>
+
+{{>layouts/footer}}

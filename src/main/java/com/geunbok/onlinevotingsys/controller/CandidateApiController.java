@@ -27,7 +27,7 @@ public class CandidateApiController {
         return id;
     }
     @GetMapping("/api/v1/candidate/{id}")
-    public CandidateResponseDto findById (@PathVariable Long id) {
+    public CandidateResponseDto findById(@PathVariable Long id) {
         return candidateService.findById(id);
     }
 }

@@ -4,28 +4,10 @@
     <div class="col-md-12">
         <div class="col-md-6">
             <a href="candidate/save" role="button" class="btn btn-primary">후보자 등록</a>
+            <a href="votelist" role="button" class="btn btn-primary">투표하기</a>
+            <a href="vote-result" role="button" class="btn btn-primary">결과보기</a>
         </div>
         <br>
-        <table class="table table-horizontal table-bordered">
-            <thead class="thead-strong">
-            <tr>
-                <th>게시글번호</th>
-                <th>학과</th>
-                <th>후보(학회장, 부학회장)</th>
-                <th>최종수정일</th>
-            </tr>
-            </thead>
-            <tbody id="tbody">
-            {{#candidate}} <!--posts 라는 List를 순회 = java의 for문과 동일-->
-            <tr>
-                <td>{{id}}</td> <!--List에서 뽑아낸 객체의 필드를 사용-->
-                <td><a href="/candidate/update/{{id}}">{{department}}</a></td>
-                <td>{{candidate1}}, {{candidate2}}</td>
-                <td>{{modifiedDate}}</td>
-            </tr>
-            {{/candidate}}
-            </tbody>
-        </table>
     </div>
 
 {{>layouts/footer}}
