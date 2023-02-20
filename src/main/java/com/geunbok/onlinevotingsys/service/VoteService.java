@@ -1,13 +1,15 @@
 package com.geunbok.onlinevotingsys.service;
 
-import com.geunbok.onlinevotingsys.controller.dto.VoteResultResponseDto;
-import com.geunbok.onlinevotingsys.controller.dto.VoteSaveRequestDto;
+import com.geunbok.onlinevotingsys.controller.dto.CandidateListResponseDto;
+import com.geunbok.onlinevotingsys.controller.dto.VoteDto;
+import com.geunbok.onlinevotingsys.domain.CandidateRepository;
 import com.geunbok.onlinevotingsys.domain.Vote;
 import com.geunbok.onlinevotingsys.domain.VoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,28 +17,37 @@ import java.util.stream.Collectors;
 @Service
 public class VoteService {
     private final VoteRepository voteRepository;
+    private final CandidateRepository candidateRepository;
 
     @Transactional
-    public Long positive(VoteSaveRequestDto requestDto) {
-        return voteRepository.save(requestDto.toEntity()).getPositive();
+    public Long vote(VoteDto voteDto){
+        Vote vote = Vote.builder()
+                .candidate(candidateRepository.findById(voteDto.getId()).get())
+                .opposite(voteDto.isOpposite())
+                .build();
+
+        return voteRepository.save(vote).getId();
     }
 
-    @Transactional
-    public Long negative(VoteSaveRequestDto requestDto) {
-        return voteRepository.save(requestDto.toEntity()).getNegative();
-    }
+    public ArrayList<Integer> getVoteResult(Long id) {
 
-    public VoteResultResponseDto findById(Long id) {
-        Vote entity = voteRepository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("해당 후보자가 없습니다. id = " + id));
+        ArrayList<Integer> result = new ArrayList<>();
 
-        return new VoteResultResponseDto(entity);
+        long allCount = voteRepository.count();
+        long agreeCount = voteRepository.countByVoted();
+        long disagreeCount = voteRepository.countByNotVoted();
+
+        result.add((int)agreeCount);
+        result.add((int)disagreeCount);
+        result.add((int)(allCount - agreeCount - disagreeCount));
+
+        return result;
     }
 
     @Transactional(readOnly = true)
-    public List<VoteResultResponseDto> findAllDesc() {
+    public List<VoteDto> findAllDesc() {
         return voteRepository.findAllDesc().stream()
-                .map(VoteResultResponseDto::new)
+                .map(VoteDto::new)
                 .collect(Collectors.toList());
     }
 }

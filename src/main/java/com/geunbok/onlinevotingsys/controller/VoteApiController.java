@@ -1,32 +1,28 @@
 package com.geunbok.onlinevotingsys.controller;
 
-import com.geunbok.onlinevotingsys.controller.dto.VoteResultResponseDto;
-import com.geunbok.onlinevotingsys.controller.dto.VoteSaveRequestDto;
-import com.geunbok.onlinevotingsys.service.CandidateService;
+import com.geunbok.onlinevotingsys.controller.dto.VoteDto;
 import com.geunbok.onlinevotingsys.service.VoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 public class VoteApiController {
-    private final CandidateService candidateService;
     private final VoteService voteService;
 
-    @PostMapping("/api/v1/vote/positive")
-    public Long positive(@RequestBody VoteSaveRequestDto requestDto) {
-        return voteService.positive(requestDto);
-    }
-
-    @PostMapping("/api/v1/vote/negative")
-    public Long negative(@RequestBody VoteSaveRequestDto requestDto) {
-        return voteService.negative(requestDto);
+    @PostMapping("/api/v1/vote")
+    public Long vote(@RequestBody VoteDto vote){
+        return voteService.vote(vote);
     }
 
     @GetMapping("/api/v1/vote/{id}")
-    public String vote(@PathVariable Long id) {
-        VoteResultResponseDto dto = voteService.findById(id);
+    public List<Integer> getVoteResult(@PathVariable Long id) {
+        List<Integer> data = voteService.getVoteResult(id);
 
-        return "vote";
+        return data;
     }
+
+
 }

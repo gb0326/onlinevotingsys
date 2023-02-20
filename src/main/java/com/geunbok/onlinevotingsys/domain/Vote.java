@@ -10,25 +10,21 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
+@Table
 public class Vote extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Long positive;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Candidate candidate;
 
     @Column
-    private Long negative;
+    private boolean opposite;
 
     @Builder
-    public Vote(Long positive, Long negative) {
-        this.positive = positive;
-        this.negative = negative;
-    }
-
-    public void count(Long positive, Long negative) {
-        this.positive = positive;
-        this.negative = negative;
+    public Vote(Candidate candidate, boolean opposite){
+        this.candidate = candidate;
+        this.opposite = opposite;
     }
 }

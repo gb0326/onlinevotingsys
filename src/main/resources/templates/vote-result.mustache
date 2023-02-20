@@ -1,24 +1,5 @@
 {{>layouts/header}}
 
-    <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">이름</th>
-                <th scope="col">찬성</th>
-                <th scope="col">반대</th>
-            </tr>
-            </thead>
-            <tbody>
-            {{#candidate}}
-                <tr>
-                    <th scope="row">{{id}}</th>
-                    <td>{{candidate1}}, {{candidate2}}</td>
-                    <td>{{vote.positive}}</td>
-                    <td>{{vote.negative}}</td>
-                </tr>
-            {{/candidate}}
-            </tbody>
-        </table>
+
 
 {{>layouts/footer}}

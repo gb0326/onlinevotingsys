@@ -1,4 +1,4 @@
-var main = {
+var vote = {
     init : function () {
         var _this = this;
 
@@ -11,13 +11,15 @@ var main = {
     },
     positive : function () {
         var data = {
-            positive: $('#positive').val()
+            id: $('#candidate_id').val(),
+            opposite: true
         };
 
         $.ajax({
             type: 'POST',
-            url: '/api/v1/vote/positive',
-            contentType:'application/json; charset=utf-8',
+            url: '/api/v1/vote/'+id,
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
         }).done(function() {
             alert('투표가 완료되었습니다.');
@@ -28,12 +30,14 @@ var main = {
     },
     negative : function () {
             var data = {
-                negative: $('#negative').val()
+                id: $('#candidate_id').val(),
+                opposite: false
             };
 
             $.ajax({
                 type: 'POST',
-                url: '/api/v1/vote/negative',
+                url: '/api/v1/vote/'+id,
+                dataType: 'json',
                 contentType:'application/json; charset=utf-8',
                 data: JSON.stringify(data)
             }).done(function() {
@@ -45,4 +49,4 @@ var main = {
         }
 };
 
-main.init();
+vote.init();
